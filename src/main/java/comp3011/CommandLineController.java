@@ -139,6 +139,7 @@ public class CommandLineController {
     private void parseShortFrameProcessorOptions(String arg) {
         for (int i = 1; i < arg.length(); i++) {
             char shortOption = arg.charAt(i);
+
             FrameProcessorOption option =
                     FrameProcessorOption.fromShortOption(shortOption);
 
@@ -182,6 +183,7 @@ public class CommandLineController {
         System.out.println("  -m, --mottle-frames    Add cloudy emulsion mottling");
         System.out.println("  -b, --bleed-frames     Bleed light into frames");
         System.out.println("  -p, --pepper-frames    Pepper frames with dark spots/blotches");
+        System.out.println();
         System.out.println("Frame processors are applied in command-line order and may be repeated.");
         System.out.println("Example: -nssnfwyvdjmbp numbers, scratches twice, numbers again, flickers,");
         System.out.println("converts, warms, vignettes, dusts, jitters, mottles, bleeds, then peppers.");
