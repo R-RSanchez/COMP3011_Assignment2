@@ -125,7 +125,10 @@ class CommandLineControllerTest {
                         video.toString()
                 });
 
-        assertEquals("Unknown option: -q", controller.getErrorMessage());
+        assertEquals(
+                "Unknown option: -q",
+                controller.getErrorMessage());
+
         assertEquals(1, controller.getExitCode());
         assertFalse(controller.shouldLaunchApplication());
     }
@@ -150,7 +153,8 @@ class CommandLineControllerTest {
 
     @Test
     void rejectsMissingVideoFile() {
-        Path missingVideo = tempDir.resolve("missing.mp4");
+        Path missingVideo =
+                tempDir.resolve("missing.mp4");
 
         CommandLineController controller =
                 new CommandLineController(new String[] {
@@ -169,8 +173,11 @@ class CommandLineControllerTest {
 
     @Test
     void rejectsMultipleVideoFiles() throws IOException {
-        Path firstVideo = createVideoFile("first.mp4");
-        Path secondVideo = createVideoFile("second.mp4");
+        Path firstVideo =
+                createVideoFile("first.mp4");
+
+        Path secondVideo =
+                createVideoFile("second.mp4");
 
         CommandLineController controller =
                 new CommandLineController(new String[] {
@@ -186,7 +193,24 @@ class CommandLineControllerTest {
         assertFalse(controller.shouldLaunchApplication());
     }
 
-    private Path createVideoFile(String fileName) throws IOException {
-        return Files.createFile(tempDir.resolve(fileName));
+    @Test
+    void helpOverridesInvalidArguments() {
+        CommandLineController controller =
+                new CommandLineController(new String[] {
+                        "--illegal-argument",
+                        "movie.mp4",
+                        "--help"
+                });
+
+        assertEquals(0, controller.getExitCode());
+        assertNull(controller.getErrorMessage());
+        assertFalse(controller.shouldLaunchApplication());
+    }
+
+    private Path createVideoFile(String fileName)
+            throws IOException {
+
+        return Files.createFile(
+                tempDir.resolve(fileName));
     }
 }
