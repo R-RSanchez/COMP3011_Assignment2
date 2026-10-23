@@ -4,7 +4,7 @@
  * 
  * Authors:
  *   1. Simon Ratcliffe, in collaboration with GPT-5.6 Terra
- *   2. <student name and student number insert here upon modification>
+ *   2. Raúl Ruiz Sánchez, a3229619
  *
  * Copyright 2026 Simon Ratcliffe
  */
@@ -45,6 +45,7 @@ public class VideoPlayerApp extends Application {
 
         controller = new VideoPlayerController(
                 commandLineController.isAudioRequested(),
+                commandLineController.getFrameProcessorOptions(),
                 this::setVideoSize);
 
         Scene scene = new Scene(controller.getView().getRoot());
@@ -107,6 +108,7 @@ public class VideoPlayerApp extends Application {
         if (outputScaleX <= 0) {
             outputScaleX = 1;
         }
+
         if (outputScaleY <= 0) {
             outputScaleY = 1;
         }
@@ -115,6 +117,7 @@ public class VideoPlayerApp extends Application {
         double displayHeight = videoHeight / outputScaleY;
 
         controller.getView().setVideoDisplaySize(displayWidth, displayHeight);
+
         if (!stage.isMaximized()) {
             stage.sizeToScene();
             alignSceneToSelectedScreen();
@@ -137,7 +140,6 @@ public class VideoPlayerApp extends Application {
         }
     }
 
-    // Entry point.
     public static void main(String[] args) {
         commandLineController = new CommandLineController(args);
 
